@@ -1,10 +1,13 @@
 package org.example.com.company.service;
 
 import org.example.com.company.bot.a1l2e3x4_bot;
+import org.example.com.company.enums.CallBackData;
 import org.example.com.company.enums.Command;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -13,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static org.example.com.company.repo.DemoRepo.firstWindow;
+import static org.example.com.company.util.Buttons.firstWindow;
+import static org.example.com.company.util.Buttons.secondWindow;
 
 public class MainService {
     public static Logger logger = Logger.getLogger(MainService.class.getName());
@@ -35,19 +39,78 @@ public class MainService {
         return markup;
     }
 
-    public void firstTime(Update update, a1l2e3x4_bot bot) {
+    public void meeting(Update update, a1l2e3x4_bot bot) {
         if (update.getMessage().getText().equals(Command.START.getVar())) {
             SendMessage sendMessage = new SendMessage();
             sendMessage.setChatId(update.getMessage().getChatId());
             sendMessage.setText("@" + update.getMessage().getFrom().getUserName() + " welcome to @a1l2e3x4_bot");
-            ReplyKeyboardMarkup replyKeyboardMarkup = GetKeyboard(firstWindow);
-            sendMessage.setReplyMarkup(replyKeyboardMarkup);
             try {
                 bot.execute(sendMessage);
+//                firstTime(update, bot);
             } catch (TelegramApiException e) {
                 logger.severe(e.getMessage());
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void firstTime(Update update, a1l2e3x4_bot bot) {
+        if (update.getMessage().getText().equals(Command.START.getVar())) {
+            sameCode(update, bot, firstWindow);
+        }
+    }
+
+    public void secondTime(Update update, a1l2e3x4_bot bot) {
+        if (update.getMessage().getText().equals(Command.PRAYER_TIMES.getVar())) {
+            sameCode(update, bot, secondWindow);
+        }
+    }
+    public void thirdTime(Update update, a1l2e3x4_bot bot) {
+        if (update.getMessage().getText().equals(Command.CONTACT_ADMIN.getVar())) {
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setText("BOG'ANISH TURINI TANLANG:");
+            sendMessage.setChatId(update.getMessage().getChatId());
+            InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+            List<InlineKeyboardButton> td = new ArrayList<>();
+            InlineKeyboardButton inlineKeyboardButtonTELG = new InlineKeyboardButton();
+            inlineKeyboardButtonTELG.setText("telegram");
+            inlineKeyboardButtonTELG.setUrl("https://t.me/ABDUMALIK_2233");
+            inlineKeyboardButtonTELG.setCallbackData(CallBackData.CALLBACK_TELEGRAM.getValue());
+
+            InlineKeyboardButton inlineKeyboardButtonCONT = new InlineKeyboardButton();
+
+            inlineKeyboardButtonCONT.setText("kontakt orqali");
+            inlineKeyboardButtonCONT.setCallbackData(CallBackData.CALLBACK_CONTACT.getValue());
+
+
+            td.add(inlineKeyboardButtonTELG);
+            td.add(inlineKeyboardButtonCONT);
+            List<List<InlineKeyboardButton>> tr = new ArrayList<>();
+            tr.add(td);
+
+            inlineKeyboardMarkup.setKeyboard(tr);
+            sendMessage.setReplyMarkup(inlineKeyboardMarkup);
+            try {
+                bot.execute(sendMessage);
+            } catch (TelegramApiException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+
+    private void sameCode(Update update, a1l2e3x4_bot bot, String[][] someWindow) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.setChatId(update.getMessage().getChatId());
+        ReplyKeyboardMarkup replyKeyboardMarkup = GetKeyboard(someWindow);
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        sendMessage.setText("Menu");
+        try {
+            bot.execute(sendMessage);
+        } catch (TelegramApiException e) {
+            logger.severe(e.getMessage());
+            e.printStackTrace();
         }
     }
 }
