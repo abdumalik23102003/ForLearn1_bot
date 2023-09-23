@@ -9,7 +9,7 @@ public enum Command {
     PRAYER_TIMES("\uD83D\uDD4B namoz vaqtlari"),
     SETTINGS("⚙️ sozlamalar"),
     CONTACT_ADMIN("\uD83D\uDCDE admin bilan aloqa"),
-    FOR_TOMORROW("ertangi"),
+    FOR_WEEK("shu hafta"),
     FOR_MONTH("shu Oy uchun"),
     BACK("\uD83D\uDD19 ortga"),
     FOR_YEAR("shu yil uchun"),

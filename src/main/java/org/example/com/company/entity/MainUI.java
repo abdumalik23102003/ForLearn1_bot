@@ -10,5 +10,8 @@ public class MainUI {
         MAIN_SERVICE.meeting(update, bot);
         MAIN_SERVICE.secondTime(update, bot);
         MAIN_SERVICE.thirdTime(update, bot);
+        MAIN_SERVICE.timeForToday(update, bot);
+        MAIN_SERVICE.timeForWeek(update, bot);
     }
+
 }

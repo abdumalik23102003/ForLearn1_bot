@@ -8,7 +8,7 @@ public class Buttons {
             {Command.CONTACT_ADMIN.getVar()}
     };
     public static String[][] secondWindow = {
-            {Command.FOR_TODAY.getVar(), Command.FOR_TOMORROW.getVar()},
+            {Command.FOR_TODAY.getVar(), Command.FOR_WEEK.getVar()},
             {Command.FOR_MONTH.getVar(), Command.FOR_YEAR.getVar()},
             {Command.CHOOSE_DATE.getVar(), Command.BACK.getVar()}
     };
